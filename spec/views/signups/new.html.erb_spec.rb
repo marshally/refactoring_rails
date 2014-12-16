@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "signups/new", :type => :view do
   before(:each) do
-    assign(:signup_form, Signup.new(
+    assign(:signup, Signup.new(
       :login => "MyString",
       :email => "MyString"
     ))
