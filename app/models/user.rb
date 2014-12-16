@@ -3,7 +3,4 @@ class User < ActiveRecord::Base
 
   validates_presence_of :login
   validates_presence_of :email
-
-  def account_name
-  end
 end

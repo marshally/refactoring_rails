@@ -14,7 +14,8 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
+    @signup_form = SignupForm.new
+    @user = @signup_form.user
   end
 
   # GET /users/1/edit
@@ -24,13 +25,12 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    account_name = params[:user].delete(:account_name)
-    @user = User.new(params[:user])
-
-    @account = Account.new(name: account_name)
+    @signup_form = SignupForm.new(params[:user])
+    @account = @signup_form.account
+    @user = @signup_form.user
 
     respond_to do |format|
-      if @user.save && @account.save
+      if @signup_form.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
