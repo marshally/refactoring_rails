@@ -41,7 +41,7 @@ RSpec.describe Git, :type => :model do
 
   context "#blame" do
     it "works" do
-      expect(git.repo).to receive(:blame).with("git_spec.rb", nil)
+      expect(git.repo).to receive(:blame).with("git_spec.rb")
       git.blame("git_spec.rb")
     end
   end
