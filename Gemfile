@@ -39,3 +39,8 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 gem "rspec-rails", group: [:development, :test]
+
+group :development do
+  gem "better_errors"
+  gem "binding_of_caller"
+end
