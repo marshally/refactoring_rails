@@ -24,11 +24,17 @@ RSpec.describe UsersController, :type => :controller do
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      email: "marshall@codeclimate.com",
+      login: "marshally",
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      email: nil,
+      login: nil,
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -69,21 +75,38 @@ RSpec.describe UsersController, :type => :controller do
 
   describe "POST create" do
     describe "with valid params" do
+      let (:account_name) { "Code Climate" }
+      let (:create_attributes) {
+        valid_attributes.merge(account_name: account_name)
+      }
       it "creates a new User" do
         expect {
-          post :create, {:user => valid_attributes}, valid_session
+          post :create, {:user => create_attributes}, valid_session
         }.to change(User, :count).by(1)
       end
 
       it "assigns a newly created user as @user" do
-        post :create, {:user => valid_attributes}, valid_session
+        post :create, {:user => create_attributes}, valid_session
         expect(assigns(:user)).to be_a(User)
         expect(assigns(:user)).to be_persisted
       end
 
+      it "assigns a newly created account as @account" do
+        post :create, {:user => create_attributes}, valid_session
+        expect(assigns(:account)).to be_a(Account)
+        expect(assigns(:account)).to be_persisted
+        expect(assigns(:account).name).to eq(account_name)
+      end
+
       it "redirects to the created user" do
-        post :create, {:user => valid_attributes}, valid_session
+        post :create, {:user => create_attributes}, valid_session
         expect(response).to redirect_to(User.last)
+      end
+
+      it "fails if account name is already take" do
+        Account.create(name: account_name)
+        post :create, {:user => create_attributes}, valid_session
+        expect(assigns(:account)).to_not be_persisted
       end
     end
 
@@ -103,14 +126,14 @@ RSpec.describe UsersController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {email: "marshall.yount@gmail.com"}
       }
 
       it "updates the requested user" do
         user = User.create! valid_attributes
         put :update, {:id => user.to_param, :user => new_attributes}, valid_session
         user.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:user).email).to eq("marshall.yount@gmail.com")
       end
 
       it "assigns the requested user as @user" do
