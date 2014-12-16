@@ -1,4 +1,4 @@
-class SignupForm
+class Signup
   include ActiveModel::Model
 
   attr_accessor(

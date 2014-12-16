@@ -12,32 +12,8 @@ class UsersController < ApplicationController
   def show
   end
 
-  # GET /users/new
-  def new
-    @signup_form = SignupForm.new
-    @user = @signup_form.user
-  end
-
   # GET /users/1/edit
   def edit
-  end
-
-  # POST /users
-  # POST /users.json
-  def create
-    @signup_form = SignupForm.new(params[:user])
-    @account = @signup_form.account
-    @user = @signup_form.user
-
-    respond_to do |format|
-      if @signup_form.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PATCH/PUT /users/1
