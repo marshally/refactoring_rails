@@ -38,7 +38,10 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem "grit"
+
 gem "rspec-rails", group: [:development, :test]
+
 
 group :development do
   gem "better_errors"
