@@ -43,4 +43,6 @@ gem "rspec-rails", group: [:development, :test]
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
+  gem "guard"
+  gem 'guard-rspec', require: false
 end
