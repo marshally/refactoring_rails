@@ -23,7 +23,7 @@ RSpec.describe SignupsController, :type => :controller do
   describe "GET new" do
     it "assigns a new user as @user" do
       get :new, {}, valid_session
-      expect(assigns(:user)).to be_a_new(User)
+      expect(assigns(:signup).user).to be_a_new(User)
     end
   end
 
@@ -41,15 +41,15 @@ RSpec.describe SignupsController, :type => :controller do
 
       it "assigns a newly created user as @user" do
         post :create, {:user => create_attributes}, valid_session
-        expect(assigns(:user)).to be_a(User)
-        expect(assigns(:user)).to be_persisted
+        expect(assigns(:signup).user).to be_a(User)
+        expect(assigns(:signup).user).to be_persisted
       end
 
       it "assigns a newly created account as @account" do
         post :create, {:user => create_attributes}, valid_session
-        expect(assigns(:account)).to be_a(Account)
-        expect(assigns(:account)).to be_persisted
-        expect(assigns(:account).name).to eq(account_name)
+        expect(assigns(:signup).account).to be_a(Account)
+        expect(assigns(:signup).account).to be_persisted
+        expect(assigns(:signup).account.name).to eq(account_name)
       end
 
       it "redirects to the created user" do
@@ -60,14 +60,14 @@ RSpec.describe SignupsController, :type => :controller do
       it "fails if account name is already take" do
         Account.create(name: account_name)
         post :create, {:user => create_attributes}, valid_session
-        expect(assigns(:account)).to_not be_persisted
+        expect(assigns(:signup).account).to_not be_persisted
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved user as @user" do
         post :create, {:user => invalid_attributes}, valid_session
-        expect(assigns(:user)).to be_a_new(User)
+        expect(assigns(:signup).user).to be_a_new(User)
       end
 
       it "re-renders the 'new' template" do
